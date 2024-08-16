@@ -1,0 +1,18 @@
+#
+#spring:
+#  config:
+#    activate:
+#      on-profile:
+#        - "pdn"
+#
+#build:
+#  version: "v0.0.2"
+#
+#support:
+#  message: "Welcome to bank of Accenture :: Environment PDN"
+#  contactInfo:
+#    name: "Johan Rojas"
+#    email: "j.rojas.rodriguez@accenture.com"
+#  phoneNumbers:
+#    - (57)3007193649
+#    - (57)3004718713

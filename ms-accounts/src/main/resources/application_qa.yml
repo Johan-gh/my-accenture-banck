@@ -1,0 +1,16 @@
+#spring:
+#  config:
+#    activate:
+#      on-profile:
+#        - "qa"
+#build:
+#  version: "v0.0.2"
+#
+#support:
+#  message: "Welcome to bank of Accenture :: Environment QA"
+#  contactInfo:
+#    name: "Tester bot"
+#    email: "tester@test.com"
+#  phoneNumbers:
+#    - (57)3007193649
+#    - (57)3004718713

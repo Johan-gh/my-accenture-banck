@@ -1,0 +1,61 @@
+name: accenture_bank
+services:
+  rabbitmq:
+    image: "rabbitmq:3.13-management"
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-service
+
+
+  configserver:
+    image: "johanrr/accenture-bank_config-server:v1.0.0"
+    container_name: configserver
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: ms-base-config
+
+  ms-customers:
+    image: "johanrr/accenture-bank_ms-customers:v1.0.0"
+    container_name: ms-customers
+    ports:
+      - "8000:8000"
+    environment:
+      SPRING_APPLICATION_NAME: "ms-customers"
+
+    extends:
+      file: common-config.yml
+      service: ms-base-configserver
+
+  ms-accounts:
+    image: "johanrr/accenture-bank_ms-accounts:v1.0.0"
+    container_name: ms-accounts
+    ports:
+      - "8010:8010"
+    environment:
+      SPRING_APPLICATION_NAME: "ms-accounts"
+
+    extends:
+      file: common-config.yml
+      service: ms-base-configserver
+
+networks:
+  accenture-network:
+    driver: "bridge"
